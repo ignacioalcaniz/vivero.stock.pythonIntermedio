@@ -5,11 +5,6 @@ import re
 
 
 class ViveroController:
-    """
-    Controlador de la aplicación Vivero. Se encarga de la lógica de interacción
-    entre la vista (interfaz Tkinter) y el modelo (base de datos).
-    """
-
     def __init__(self):
         self.model = ProductoModel()
         self.configurar_botones()
@@ -33,10 +28,12 @@ class ViveroController:
     def actualizar_treeview(self):
         for item in tree_vivero.get_children():
             tree_vivero.delete(item)
-
-        productos = self.model.obtener_productos()
-        for prod in productos:
-            tree_vivero.insert("", "end", text=prod[0], values=(prod[1], prod[2], prod[3]))
+        try:
+            productos = self.model.obtener_productos()
+            for prod in productos:
+                tree_vivero.insert("", "end", text=prod[0], values=(prod[1], prod[2], prod[3]))
+        except Exception as e:
+            messagebox.showerror("Error", f"No se pudo cargar los productos:\n{e}")
 
     def guardar(self):
         nombre = var_nombre.get()
@@ -51,18 +48,24 @@ class ViveroController:
             messagebox.showwarning("Faltan datos", "Complete todos los campos.")
             return
 
-        self.model.insertar_producto(nombre, cantidad, precio)
-        messagebox.showinfo("Guardado", "Producto guardado exitosamente.")
-        self.limpiar_campos()
-        self.actualizar_treeview()
+        try:
+            self.model.insertar_producto(nombre, cantidad, precio)
+            messagebox.showinfo("Guardado", "Producto guardado exitosamente.")
+            self.limpiar_campos()
+            self.actualizar_treeview()
+        except Exception as e:
+            messagebox.showerror("Error al guardar", f"Ocurrió un error al guardar:\n{e}")
 
     def eliminar(self):
         seleccionado = tree_vivero.focus()
         if seleccionado:
             id_producto = tree_vivero.item(seleccionado, "text")
-            self.model.eliminar_producto(id_producto)
-            messagebox.showinfo("Eliminado", "Producto eliminado.")
-            self.actualizar_treeview()
+            try:
+                self.model.eliminar_producto(id_producto)
+                messagebox.showinfo("Eliminado", "Producto eliminado.")
+                self.actualizar_treeview()
+            except Exception as e:
+                messagebox.showerror("Error al eliminar", f"No se pudo eliminar el producto:\n{e}")
         else:
             messagebox.showwarning("Seleccionar", "Seleccione un producto para eliminar.")
 
@@ -78,9 +81,12 @@ class ViveroController:
                 messagebox.showwarning("Faltan datos", "Complete todos los campos.")
                 return
 
-            self.model.modificar_producto(id_producto, nombre, cantidad, precio)
-            messagebox.showinfo("Modificado", "Producto modificado correctamente.")
-            self.actualizar_treeview()
+            try:
+                self.model.modificar_producto(id_producto, nombre, cantidad, precio)
+                messagebox.showinfo("Modificado", "Producto modificado correctamente.")
+                self.actualizar_treeview()
+            except Exception as e:
+                messagebox.showerror("Error al modificar", f"No se pudo modificar el producto:\n{e}")
         else:
             messagebox.showwarning("Seleccionar", "Seleccione un producto para modificar.")
 
@@ -97,13 +103,16 @@ class ViveroController:
     def guardar_en_archivo(self):
         archivo = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("CSV files", "*.csv")])
         if archivo:
-            with open(archivo, "w", encoding="utf-8") as f:
-                f.write("ID,Nombre,Cantidad,Precio\n")
-                for item in tree_vivero.get_children():
-                    id_val = tree_vivero.item(item, "text")
-                    nombre, cantidad, precio = tree_vivero.item(item, "values")
-                    f.write(f"{id_val},{nombre},{cantidad},{precio}\n")
-            messagebox.showinfo("Guardado", f"Datos exportados correctamente a:\n{archivo}")
+            try:
+                with open(archivo, "w", encoding="utf-8") as f:
+                    f.write("ID,Nombre,Cantidad,Precio\n")
+                    for item in tree_vivero.get_children():
+                        id_val = tree_vivero.item(item, "text")
+                        nombre, cantidad, precio = tree_vivero.item(item, "values")
+                        f.write(f"{id_val},{nombre},{cantidad},{precio}\n")
+                messagebox.showinfo("Guardado", f"Datos exportados correctamente a:\n{archivo}")
+            except Exception as e:
+                messagebox.showerror("Error al exportar", f"No se pudo guardar el archivo:\n{e}")
 
     def limpiar_campos(self):
         var_nombre.set("")
@@ -115,5 +124,6 @@ class ViveroController:
 if __name__ == "__main__":
     app = ViveroController()
     vivero_stock.mainloop()
+
 
 

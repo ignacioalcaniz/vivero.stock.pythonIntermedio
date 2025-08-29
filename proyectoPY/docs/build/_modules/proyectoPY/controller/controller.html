@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>proyectoPY.controller.controller &#8212; documentación de Proyecto Vivero - 1.0.0</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../../_static/documentation_options.js?v=36c4ab74"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/translations.js?v=f85f4cfb"></script>
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Código fuente para proyectoPY.controller.controller</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">Button</span><span class="p">,</span> <span class="n">Menu</span><span class="p">,</span> <span class="n">messagebox</span><span class="p">,</span> <span class="n">filedialog</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">proyectoPY.view.view</span><span class="w"> </span><span class="kn">import</span> <span class="n">vivero_stock</span><span class="p">,</span> <span class="n">var_nombre</span><span class="p">,</span> <span class="n">var_cantidad</span><span class="p">,</span> <span class="n">var_precio</span><span class="p">,</span> <span class="n">tree_vivero</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">proyectoPY.model.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProductoModel</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+
+<div class="viewcode-block" id="ViveroController">
+<a class="viewcode-back" href="../../../proyectoPY.controller.html#proyectoPY.controller.controller.ViveroController">[documentos]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ViveroController</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">ProductoModel</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configurar_botones</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configurar_menu</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_treeview</span><span class="p">()</span>
+
+<div class="viewcode-block" id="ViveroController.configurar_botones">
+<a class="viewcode-back" href="../../../proyectoPY.controller.html#proyectoPY.controller.controller.ViveroController.configurar_botones">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">configurar_botones</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Button</span><span class="p">(</span><span class="n">vivero_stock</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Guardar&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">guardar</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">Button</span><span class="p">(</span><span class="n">vivero_stock</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Eliminar&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eliminar</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">Button</span><span class="p">(</span><span class="n">vivero_stock</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Modificar&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">modificar</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">Button</span><span class="p">(</span><span class="n">vivero_stock</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Consultar&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">consultar</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ViveroController.configurar_menu">
+<a class="viewcode-back" href="../../../proyectoPY.controller.html#proyectoPY.controller.controller.ViveroController.configurar_menu">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">configurar_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">menu_bar</span> <span class="o">=</span> <span class="n">Menu</span><span class="p">(</span><span class="n">vivero_stock</span><span class="p">)</span>
+        <span class="n">archivo_menu</span> <span class="o">=</span> <span class="n">Menu</span><span class="p">(</span><span class="n">menu_bar</span><span class="p">,</span> <span class="n">tearoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">archivo_menu</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Guardar como&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">guardar_en_archivo</span><span class="p">)</span>
+        <span class="n">archivo_menu</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Salir&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">vivero_stock</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
+        <span class="n">menu_bar</span><span class="o">.</span><span class="n">add_cascade</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Archivo&quot;</span><span class="p">,</span> <span class="n">menu</span><span class="o">=</span><span class="n">archivo_menu</span><span class="p">)</span>
+        <span class="n">vivero_stock</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">menu</span><span class="o">=</span><span class="n">menu_bar</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ViveroController.actualizar_treeview">
+<a class="viewcode-back" href="../../../proyectoPY.controller.html#proyectoPY.controller.controller.ViveroController.actualizar_treeview">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">actualizar_treeview</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tree_vivero</span><span class="o">.</span><span class="n">get_children</span><span class="p">():</span>
+            <span class="n">tree_vivero</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">productos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">obtener_productos</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">prod</span> <span class="ow">in</span> <span class="n">productos</span><span class="p">:</span>
+                <span class="n">tree_vivero</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">prod</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="n">prod</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">prod</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">prod</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">messagebox</span><span class="o">.</span><span class="n">showerror</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;No se pudo cargar los productos:</span><span class="se">\n</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ViveroController.guardar">
+<a class="viewcode-back" href="../../../proyectoPY.controller.html#proyectoPY.controller.controller.ViveroController.guardar">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">guardar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">nombre</span> <span class="o">=</span> <span class="n">var_nombre</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">cantidad</span> <span class="o">=</span> <span class="n">var_cantidad</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">precio</span> <span class="o">=</span> <span class="n">var_precio</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^[A-Za-z]+(?:[ _-][A-Za-z]+)*$&quot;</span><span class="p">,</span> <span class="n">nombre</span><span class="p">):</span>
+            <span class="n">messagebox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="s2">&quot;Nombre inválido&quot;</span><span class="p">,</span> <span class="s2">&quot;El nombre debe contener solo letras y ser alfanumérico.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">nombre</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">precio</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">messagebox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="s2">&quot;Faltan datos&quot;</span><span class="p">,</span> <span class="s2">&quot;Complete todos los campos.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">insertar_producto</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">,</span> <span class="n">precio</span><span class="p">)</span>
+            <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Guardado&quot;</span><span class="p">,</span> <span class="s2">&quot;Producto guardado exitosamente.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">limpiar_campos</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_treeview</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">messagebox</span><span class="o">.</span><span class="n">showerror</span><span class="p">(</span><span class="s2">&quot;Error al guardar&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Ocurrió un error al guardar:</span><span class="se">\n</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ViveroController.eliminar">
+<a class="viewcode-back" href="../../../proyectoPY.controller.html#proyectoPY.controller.controller.ViveroController.eliminar">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">eliminar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">seleccionado</span> <span class="o">=</span> <span class="n">tree_vivero</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">seleccionado</span><span class="p">:</span>
+            <span class="n">id_producto</span> <span class="o">=</span> <span class="n">tree_vivero</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">seleccionado</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eliminar_producto</span><span class="p">(</span><span class="n">id_producto</span><span class="p">)</span>
+                <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Eliminado&quot;</span><span class="p">,</span> <span class="s2">&quot;Producto eliminado.&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_treeview</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">messagebox</span><span class="o">.</span><span class="n">showerror</span><span class="p">(</span><span class="s2">&quot;Error al eliminar&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;No se pudo eliminar el producto:</span><span class="se">\n</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">messagebox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="s2">&quot;Seleccionar&quot;</span><span class="p">,</span> <span class="s2">&quot;Seleccione un producto para eliminar.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ViveroController.modificar">
+<a class="viewcode-back" href="../../../proyectoPY.controller.html#proyectoPY.controller.controller.ViveroController.modificar">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">modificar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">seleccionado</span> <span class="o">=</span> <span class="n">tree_vivero</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">seleccionado</span><span class="p">:</span>
+            <span class="n">id_producto</span> <span class="o">=</span> <span class="n">tree_vivero</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">seleccionado</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">)</span>
+            <span class="n">nombre</span> <span class="o">=</span> <span class="n">var_nombre</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">cantidad</span> <span class="o">=</span> <span class="n">var_cantidad</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">precio</span> <span class="o">=</span> <span class="n">var_precio</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">nombre</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">precio</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="n">messagebox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="s2">&quot;Faltan datos&quot;</span><span class="p">,</span> <span class="s2">&quot;Complete todos los campos.&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">modificar_producto</span><span class="p">(</span><span class="n">id_producto</span><span class="p">,</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">,</span> <span class="n">precio</span><span class="p">)</span>
+                <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Modificado&quot;</span><span class="p">,</span> <span class="s2">&quot;Producto modificado correctamente.&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">actualizar_treeview</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">messagebox</span><span class="o">.</span><span class="n">showerror</span><span class="p">(</span><span class="s2">&quot;Error al modificar&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;No se pudo modificar el producto:</span><span class="se">\n</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">messagebox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="s2">&quot;Seleccionar&quot;</span><span class="p">,</span> <span class="s2">&quot;Seleccione un producto para modificar.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ViveroController.consultar">
+<a class="viewcode-back" href="../../../proyectoPY.controller.html#proyectoPY.controller.controller.ViveroController.consultar">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">consultar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">seleccionado</span> <span class="o">=</span> <span class="n">tree_vivero</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">seleccionado</span><span class="p">:</span>
+            <span class="n">nombre</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">,</span> <span class="n">precio</span> <span class="o">=</span> <span class="n">tree_vivero</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">seleccionado</span><span class="p">,</span> <span class="s2">&quot;values&quot;</span><span class="p">)</span>
+            <span class="n">var_nombre</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">nombre</span><span class="p">)</span>
+            <span class="n">var_cantidad</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cantidad</span><span class="p">)</span>
+            <span class="n">var_precio</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">precio</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">messagebox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="s2">&quot;Seleccionar&quot;</span><span class="p">,</span> <span class="s2">&quot;Seleccione un producto para consultar.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ViveroController.guardar_en_archivo">
+<a class="viewcode-back" href="../../../proyectoPY.controller.html#proyectoPY.controller.controller.ViveroController.guardar_en_archivo">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">guardar_en_archivo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">archivo</span> <span class="o">=</span> <span class="n">filedialog</span><span class="o">.</span><span class="n">asksaveasfilename</span><span class="p">(</span><span class="n">defaultextension</span><span class="o">=</span><span class="s2">&quot;.csv&quot;</span><span class="p">,</span> <span class="n">filetypes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;CSV files&quot;</span><span class="p">,</span> <span class="s2">&quot;*.csv&quot;</span><span class="p">)])</span>
+        <span class="k">if</span> <span class="n">archivo</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">archivo</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;ID,Nombre,Cantidad,Precio</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tree_vivero</span><span class="o">.</span><span class="n">get_children</span><span class="p">():</span>
+                        <span class="n">id_val</span> <span class="o">=</span> <span class="n">tree_vivero</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">)</span>
+                        <span class="n">nombre</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">,</span> <span class="n">precio</span> <span class="o">=</span> <span class="n">tree_vivero</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s2">&quot;values&quot;</span><span class="p">)</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">id_val</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">cantidad</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">precio</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Guardado&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Datos exportados correctamente a:</span><span class="se">\n</span><span class="si">{</span><span class="n">archivo</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">messagebox</span><span class="o">.</span><span class="n">showerror</span><span class="p">(</span><span class="s2">&quot;Error al exportar&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;No se pudo guardar el archivo:</span><span class="se">\n</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ViveroController.limpiar_campos">
+<a class="viewcode-back" href="../../../proyectoPY.controller.html#proyectoPY.controller.controller.ViveroController.limpiar_campos">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">limpiar_campos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">var_nombre</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">var_cantidad</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">var_precio</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="c1"># ---------- Inicio del programa ----------</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">ViveroController</span><span class="p">()</span>
+    <span class="n">vivero_stock</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+
+
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Proyecto Vivero</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navegación</h3>
+<p class="caption" role="heading"><span class="caption-text">Contenidos:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../proyectoPY.html">ProyectoPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../proyectoPY.controller.html">proyectoPY.controller package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../proyectoPY.view.html">proyectoPY.view package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, IGNACIO ALCANIZ.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
