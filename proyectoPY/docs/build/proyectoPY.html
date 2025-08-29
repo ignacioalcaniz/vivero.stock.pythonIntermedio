@@ -19,9 +19,7 @@
       <script src="_static/translations.js?v=f85f4cfb"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Índice" href="genindex.html" />
-    <link rel="search" title="Búsqueda" href="search.html" />
-    <link rel="next" title="proyectoPY.controller package" href="proyectoPY.controller.html" />
-    <link rel="prev" title="Proyecto Vivero documentation" href="index.html" /> 
+    <link rel="search" title="Búsqueda" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,27 +41,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contenidos:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">ProyectoPY</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#proyectoPY.controller.controller.ViveroController"><code class="docutils literal notranslate"><span class="pre">ViveroController</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#proyectoPY.controller.controller.ViveroController.actualizar_treeview"><code class="docutils literal notranslate"><span class="pre">ViveroController.actualizar_treeview()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#proyectoPY.controller.controller.ViveroController.configurar_botones"><code class="docutils literal notranslate"><span class="pre">ViveroController.configurar_botones()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#proyectoPY.controller.controller.ViveroController.configurar_menu"><code class="docutils literal notranslate"><span class="pre">ViveroController.configurar_menu()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#proyectoPY.controller.controller.ViveroController.consultar"><code class="docutils literal notranslate"><span class="pre">ViveroController.consultar()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#proyectoPY.controller.controller.ViveroController.eliminar"><code class="docutils literal notranslate"><span class="pre">ViveroController.eliminar()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#proyectoPY.controller.controller.ViveroController.guardar"><code class="docutils literal notranslate"><span class="pre">ViveroController.guardar()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#proyectoPY.controller.controller.ViveroController.guardar_en_archivo"><code class="docutils literal notranslate"><span class="pre">ViveroController.guardar_en_archivo()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#proyectoPY.controller.controller.ViveroController.limpiar_campos"><code class="docutils literal notranslate"><span class="pre">ViveroController.limpiar_campos()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#proyectoPY.controller.controller.ViveroController.modificar"><code class="docutils literal notranslate"><span class="pre">ViveroController.modificar()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
+              <p class="caption" role="heading"><span class="caption-text">Módulos incluidos:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="main.html">proyectoPY.main module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="proyectoPY.controller.html">proyectoPY.controller package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="proyectoPY.view.html">proyectoPY.view package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="main.html">proyectoPY.main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Módulos del Proyecto</a></li>
 </ul>
 
         </div>
@@ -92,66 +74,103 @@
              
   <section id="module-proyectoPY">
 <span id="proyectopy"></span><h1>ProyectoPY<a class="headerlink" href="#module-proyectoPY" title="Link to this heading"></a></h1>
-<dl class="py class" id="module-proyectoPY.controller.controller">
-<span id="module-proyectoPY.main"></span><dt class="sig sig-object py" id="proyectoPY.controller.controller.ViveroController">
+<section id="modulo-controller">
+<span id="module-proyectoPY.controller.controller"></span><span id="module-proyectoPY.main"></span><h2>Módulo controller<a class="headerlink" href="#modulo-controller" title="Link to this heading"></a></h2>
+<p>Este módulo define la clase ViveroController, que actúa como el controlador en la arquitectura MVC 
+(Modelo-Vista-Controlador) de la aplicación «Vivero La Place Stock».</p>
+<p>Responsabilidades del controlador:
+- Coordinar la comunicación entre la vista (interfaz gráfica) y el modelo (base de datos).
+- Validar datos ingresados por el usuario.
+- Ejecutar las operaciones CRUD sobre la base de datos.
+- Actualizar la interfaz según los cambios.
+- Manejar errores y mostrar mensajes al usuario.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="proyectoPY.controller.controller.ViveroController">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">proyectoPY.controller.controller.</span></span><span class="sig-name descname"><span class="pre">ViveroController</span></span><a class="reference internal" href="_modules/proyectoPY/controller/controller.html#ViveroController"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#proyectoPY.controller.controller.ViveroController" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Controlador principal de la aplicación.</p>
+<p>Maneja las acciones del usuario desde la interfaz gráfica, valida datos,
+invoca los métodos del modelo y actualiza la vista.</p>
+<p>Métodos principales:
+- guardar: Inserta un nuevo producto validado en la base de datos.
+- eliminar: Elimina un producto seleccionado.
+- modificar: Modifica los datos de un producto existente.
+- consultar: Carga los datos del producto seleccionado en los campos de entrada.
+- guardar_en_archivo: Exporta los productos a un archivo CSV.
+- limpiar_campos: Limpia los campos de entrada después de guardar o modificar.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="proyectoPY.controller.controller.ViveroController.actualizar_treeview">
 <span class="sig-name descname"><span class="pre">actualizar_treeview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/proyectoPY/controller/controller.html#ViveroController.actualizar_treeview"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#proyectoPY.controller.controller.ViveroController.actualizar_treeview" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Actualiza el contenido del Treeview con los datos actuales de la base de datos.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="proyectoPY.controller.controller.ViveroController.configurar_botones">
 <span class="sig-name descname"><span class="pre">configurar_botones</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/proyectoPY/controller/controller.html#ViveroController.configurar_botones"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#proyectoPY.controller.controller.ViveroController.configurar_botones" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Configura los botones de la interfaz gráfica y sus comandos asociados.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="proyectoPY.controller.controller.ViveroController.configurar_menu">
 <span class="sig-name descname"><span class="pre">configurar_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/proyectoPY/controller/controller.html#ViveroController.configurar_menu"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#proyectoPY.controller.controller.ViveroController.configurar_menu" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Configura la barra de menú superior con opciones para guardar en archivo y salir.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="proyectoPY.controller.controller.ViveroController.consultar">
 <span class="sig-name descname"><span class="pre">consultar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/proyectoPY/controller/controller.html#ViveroController.consultar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#proyectoPY.controller.controller.ViveroController.consultar" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Carga los datos del producto seleccionado en los campos de entrada para su consulta.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="proyectoPY.controller.controller.ViveroController.eliminar">
 <span class="sig-name descname"><span class="pre">eliminar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/proyectoPY/controller/controller.html#ViveroController.eliminar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#proyectoPY.controller.controller.ViveroController.eliminar" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Elimina el producto seleccionado en el Treeview de la base de datos.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="proyectoPY.controller.controller.ViveroController.guardar">
 <span class="sig-name descname"><span class="pre">guardar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/proyectoPY/controller/controller.html#ViveroController.guardar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#proyectoPY.controller.controller.ViveroController.guardar" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Guarda un nuevo producto en la base de datos después de validar los campos.
+Valida el nombre usando una expresión regular.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="proyectoPY.controller.controller.ViveroController.guardar_en_archivo">
 <span class="sig-name descname"><span class="pre">guardar_en_archivo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/proyectoPY/controller/controller.html#ViveroController.guardar_en_archivo"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#proyectoPY.controller.controller.ViveroController.guardar_en_archivo" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Exporta todos los productos mostrados en el Treeview a un archivo CSV.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="proyectoPY.controller.controller.ViveroController.limpiar_campos">
 <span class="sig-name descname"><span class="pre">limpiar_campos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/proyectoPY/controller/controller.html#ViveroController.limpiar_campos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#proyectoPY.controller.controller.ViveroController.limpiar_campos" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Limpia los campos de entrada (nombre, cantidad, precio) luego de una operación.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="proyectoPY.controller.controller.ViveroController.modificar">
 <span class="sig-name descname"><span class="pre">modificar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/proyectoPY/controller/controller.html#ViveroController.modificar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#proyectoPY.controller.controller.ViveroController.modificar" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Modifica los datos del producto seleccionado con los nuevos valores ingresados.</p>
+</dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-proyectoPY.view.view"></span></section>
+<section id="modulo-view">
+<span id="module-proyectoPY.view.view"></span><h2>Módulo view<a class="headerlink" href="#modulo-view" title="Link to this heading"></a></h2>
+<p>Este módulo contiene la vista principal de la aplicación «Vivero LaPlace Stock».</p>
+<p>Define la interfaz gráfica utilizando Tkinter, con:
+- Entradas de texto para nombre, cantidad y precio.
+- Un widget Treeview para mostrar los productos registrados.
+- Variables que almacenan los valores de entrada para ser usadas por el controlador.</p>
+<p>La ventana principal (<cite>vivero_stock</cite>) es utilizada y controlada por el controlador de la app.</p>
+</section>
+</section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
-        <a href="index.html" class="btn btn-neutral float-left" title="Proyecto Vivero documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
-        <a href="proyectoPY.controller.html" class="btn btn-neutral float-right" title="proyectoPY.controller package" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 
