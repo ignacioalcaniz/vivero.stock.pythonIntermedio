@@ -1,0 +1,10 @@
+[build-system]
+requires = ["setuptools","setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "proyectoPy"
+version = "1.0.0"
+
+[project.scripts]
+ignacioComando= "proyectoPy.__main__:main"

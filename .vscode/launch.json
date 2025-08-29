@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Ejecutar como módulo",
+      "type": "python",
+      "request": "launch",
+      "module": "proyectoPY.main",
+      "console": "integratedTerminal"
+    }
+  ]
+}
